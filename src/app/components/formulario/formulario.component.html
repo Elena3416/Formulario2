@@ -1,0 +1,483 @@
+<div class="container">
+  <div class="jumbotron mt-2">
+    <div class="row text-center">
+      <div class="col-12">
+        <p>Rellene todos los datos marcados como obligatorios</p>
+      </div>
+    </div>
+    <div class="cuadro">
+      <div class="row text-center">
+        <div class="col-12">
+          <p class="mt-2">Datos de registro</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Nombre de usuario:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('NombreUsuario').error == false,
+                'is-invalid': ValidarFormulario('NombreUsuario').error == true
+              }"
+              formControlName="NombreUsuario"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('NombreUsuario').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("NombreUsuario").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Dirección de e-mail:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+              type="email"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('email').error == false,
+                'is-invalid': ValidarFormulario('email').error == true
+              }"
+              formControlName="email"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('email').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("email").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Contraseña:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+              type="password"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('password').error == false,
+                'is-invalid': ValidarFormulario('password').error == true
+              }"
+              formControlName="password"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('password').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("password").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Repetir Contraseña:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+              type="password"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('repeatpassword').error == false,
+                'is-invalid': ValidarFormulario('repeatpassword').error == true
+              }"
+              formControlName="repeatpassword"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('repeatpassword').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("repeatpassword").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+    </div>
+    <div class="cuadro">
+      <div class="row text-center">
+        <div class="col-12">
+          <p class="mt-2">Datos Personales</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Nombre y apellidos:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('nombreapellidos').error == false,
+                'is-invalid': ValidarFormulario('nombreapellidos').error == true
+              }"
+              formControlName="nombreapellidos"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('nombreapellidos').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("nombreapellidos").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">RFC:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('RFC').error == false,
+                'is-invalid': ValidarFormulario('RFC').error == true
+              }"
+              formControlName="RFC"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('RFC').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("RFC").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Teléfono de contacto:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+              type="tel"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('telefono').error == false,
+                'is-invalid': ValidarFormulario('telefono').error == true
+              }"
+              formControlName="telefono"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('telefono').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("telefono").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+    </div>
+    <div class="cuadro">
+      <div class="row text-center">
+        <div class="col-12">
+          <p class="mt-2">Datos Postales</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Dirección:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('address').error == false,
+                'is-invalid': ValidarFormulario('address').error == true
+              }"
+              formControlName="address"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('address').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("address").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-1">
+          <label class="ml-4">N°:</label>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <input
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('Number').error == false,
+                'is-invalid': ValidarFormulario('Number').error == true
+              }"
+              formControlName="Number"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('Number').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("Number").message }}
+          </div>
+        </div>
+        <div class="col-1" [formGroup]="formulario">
+          <label class="ml-3">Street:</label>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('street').error == false,
+                'is-invalid': ValidarFormulario('street').error == true
+              }"
+              formControlName="street"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('street').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("street").message }}
+          </div>
+        </div>
+        <div class="col-1" [formGroup]="formulario">
+          <label class="ml-3">Piso:</label>
+        </div>
+        <div class="col-2">
+          <div class="form-group">
+            <input
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('floor').error == false,
+                'is-invalid': ValidarFormulario('floor').error == true
+              }"
+              formControlName="floor"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('floor').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("floor").message }}
+          </div>
+        </div>
+        <div class="col-1" [formGroup]="formulario">
+          <label class="ml-3">Letra:</label>
+        </div>
+        <div class="col-1">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('letter').error == false,
+                'is-invalid': ValidarFormulario('letter').error == true
+              }"
+              formControlName="letter"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('letter').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("letter").message }}
+          </div>
+        </div>
+        <div class="col-1 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-2">
+          <label class="ml-5">CP:</label>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <input
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('zipcode').error == false,
+                'is-invalid': ValidarFormulario('zipcode').error == true
+              }"
+              formControlName="zipcode"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('zipcode').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("zipcode").message }}
+          </div>
+        </div>
+        <div class="col-2" [formGroup]="formulario">
+          <label class="ml-3">Localidad:</label>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <input
+            appCapitalize
+              type="text"
+              [ngClass]="{
+                'is-valid': ValidarFormulario('Localidad').error == false,
+                'is-invalid': ValidarFormulario('Localidad').error == true
+              }"
+              formControlName="Localidad"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngIf="ValidarFormulario('Localidad').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("Localidad").message }}
+          </div>
+        </div>
+        <div class="col-1 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">Continente:</label>
+        </div>
+        <div class="col-6">
+          <select
+            [ngClass]="{
+              'is-valid': ValidarFormulario('Provincia').error == false,
+              'is-invalid': ValidarFormulario('Provincia').error == true
+            }"
+            formControlName="Provincia"
+            class="form-control"
+          >Seleccione un Continente
+            <option value="">Seleccione un Continente</option>
+            <option value="Provincia">América</option>
+            <option value="Provincia">Europa</option>
+            <option value="Provincia">Asia</option>
+            <option value="Provincia">África</option>
+            <option value="Provincia">Oceanía</option>
+          </select>
+          <div
+            *ngIf="ValidarFormulario('Provincia').error"
+            class="invalid-feedback d-block mb-3 text-center"
+            style="font-size: 15px;"
+          >
+            {{ ValidarFormulario("Provincia").message }}
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+      <div class="row mt-3" [formGroup]="formulario">
+        <div class="col-4">
+          <label class="ml-5">País:</label>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <select
+              [ngClass]="{
+                'is-valid': ValidarFormulario('Pais').error == false,
+                'is-invalid': ValidarFormulario('Pais').error == true
+              }"
+              formControlName="Pais"
+              class="form-control"
+              >Selecciona un país
+              <option value="">Seleccione un país</option>
+              <option *ngFor="let country of NameCountries" [value]="country">{{
+                country
+              }}</option>
+            </select>
+            <div
+              *ngIf="ValidarFormulario('Pais').error"
+              class="invalid-feedback d-block mb-3 text-center"
+              style="font-size: 15px;"
+            >
+              {{ ValidarFormulario("Pais").message }}
+            </div>
+          </div>
+        </div>
+        <div class="col-2 obligatorio">
+          <p>*</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button
+          click="limpiarInformacion()"
+          *ngIf="!formulario.invalid"
+          class="btn btn-outline-dark btn-block mt-3"
+        >
+          Guardar Información
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

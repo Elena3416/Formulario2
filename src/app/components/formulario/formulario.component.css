@@ -1,0 +1,19 @@
+.jumbotron{
+    margin: auto;
+}
+
+.row > .col-12 > p{
+    font-size: 20px; 
+} 
+
+.cuadro{
+   border: 2px solid rgb(4, 119, 139);
+   margin-top: 3%;
+   border-radius: 10px;
+}
+
+.obligatorio{
+    color:rgb(253, 0, 0);
+    font-size: 30px;
+}
+
