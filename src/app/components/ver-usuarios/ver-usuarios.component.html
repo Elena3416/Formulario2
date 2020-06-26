@@ -1,0 +1,25 @@
+<div class="container mt-3">
+  <button type="button" routerLink="GuardarUsuario" class="btn btn-outline-primary btn-sm">Regresar</button>
+  <h1 class="text-center">Usuarios Registrados</h1>
+
+  <table class="table text-center mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Email</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of ArregloUsuarios">
+        <th scope="row">{{usuario.id}}</th>
+        <td>{{usuario.NombreCompleto}}</td>
+        <td>{{usuario.Email}}</td>
+        <td>
+          <button type="button" class="btn btn-warning btn-lg btn-block" (click)="IrActualizar(usuario.id)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

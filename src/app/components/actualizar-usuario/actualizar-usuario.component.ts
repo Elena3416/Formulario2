@@ -1,45 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from '@angular/forms';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { ValidacionesErroresService } from "./../../Services/validaciones-errores.service";
-import { RxwebValidators } from "@rxweb/reactive-form-validators";
-import { CountryService } from "./../../../app/Services/country.service";
-import {UserDataBaseService} from "./../../Services/user-data-base.service";
-import { Usuario } from 'src/app/Interfaces/user.interface';
-import {Router} from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, pluck } from 'rxjs/operators';
+import { UserDataBaseService } from "./../../Services/user-data-base.service";
+import { CountryService } from "./../../Services/country.service";
+import { Router } from "@angular/router";
+import { Usuario } from "./../../Interfaces/user.interface";
 
 @Component({
-  selector: 'app-formulario',
-  templateUrl: './formulario.component.html',
-  styleUrls: ["./formulario.component.css"]
+  selector: 'app-actualizar-usuario',
+  templateUrl: './actualizar-usuario.component.html',
+  styleUrls: ["./actualizar-usuario.component.css"]
 })
 
-export class FormularioComponent implements OnInit{
+export class ActualizarUsuarioComponent implements OnInit {
 
+  public formulario: FormGroup;
+  public UsuarioRecibido: any;
+  public loading: boolean;
   public NameCountries: Array<string> = [];
-  public UsuarioPendiente:any;
 
-  constructor(private ASErrorMsg: ValidacionesErroresService, private AWServices: CountryService,
-    private UserDB:UserDataBaseService, private Router:Router) {
-    this.AWServices.GetCountries().subscribe((country:string) => this.NameCountries.push(country));
+  constructor(private ASErrorMsg: ValidacionesErroresService, private AR: ActivatedRoute,
+    private UsuarioDb: UserDataBaseService, private AWServices: CountryService,
+    private router: Router) {
+
+    this.AWServices.GetCountries().subscribe((country: string) => this.NameCountries.push(country));
+    this.loading = true;
+    this.AR.params.pipe(
+      pluck('id'),
+      switchMap((idUsuario) => this.UsuarioDb.ObtenerUsuarioUnico(idUsuario))
+    ).subscribe((Usuario: any) => {
+      this.UsuarioRecibido = Usuario[0],
+        this.formulario.patchValue(this.UsuarioRecibido);
+      this.loading = false;
+    });
   }
 
   ngOnInit(): void {
     this.Createformulario();
-
-    this.UsuarioPendiente = JSON.parse(localStorage.getItem('UsuarioPendiente'));
-
-    this.formulario.patchValue(this.UsuarioPendiente);
   }
-
-//Cuando el cliente llena la informacion pero no lo completa
-  ngOnDestroy(): void{
-    //crea un propiedad, que va hacer igual al 
-    const ValoresFormulario = this.formulario.value;
-
-    localStorage.setItem('UsuarioPendiente', JSON.stringify(ValoresFormulario));
-    
-  }
-  public formulario: FormGroup;
 
   public Createformulario() {
 
@@ -50,16 +51,14 @@ export class FormularioComponent implements OnInit{
         RxwebValidators.ascii(),
         RxwebValidators.minLength({ value: 5 }),
         RxwebValidators.maxLength({ value: 15 })
-      ],
-      this.ASErrorMsg.verificarNombreUsuarioNoExista.bind(this)),
+      ]),
 
       Email: new FormControl(null, [
         RxwebValidators.required(),
         RxwebValidators.email(),
         RxwebValidators.minLength({ value: 5 }),
         RxwebValidators.maxLength({ value: 30 })
-      ],
-      this.ASErrorMsg.verificarEmailNoExista.bind(this)),
+      ]),
 
       Password: new FormControl(null, [
         RxwebValidators.required(),
@@ -82,8 +81,7 @@ export class FormularioComponent implements OnInit{
       RFC: new FormControl(null, [
         RxwebValidators.alphaNumeric(),
         RxwebValidators.maxLength({ value: 13 })
-      ],
-      this.ASErrorMsg.verificarrfcNoExista.bind(this)),
+      ]),
 
       Telefono: new FormControl(null, [
         RxwebValidators.required(),
@@ -147,16 +145,18 @@ export class FormularioComponent implements OnInit{
     return this.ASErrorMsg.ErrorMensage(this.formulario.controls[control].errors);
   }
 
-  //mandar llamar al servicio userdb con el metodo guardarusuario
-  public GuardarUsuario(){
-    
-    if(!this.formulario.valid) {
-      alert ('Formulario Invalido');
+  // public VerUsuarios() {
+  //   this.router.navigate(["verusuarios"]);
+  // }
+
+  public GuardarUsuario() {
+    if (!this.formulario.valid) {
+      alert('Formulario Invalido');
       return;
     };
 
-    const Usuario:Usuario = this.formulario.value;
-    this.UserDB.GuardarUsuario(Usuario);
+    const Usuario: Usuario = this.formulario.value;
+    this.UsuarioDb.GuardarUsuario(Usuario);
 
     //cuando se guarde la informacion en la bd, se limpia la informacion en el localstorage
     localStorage.clear();
@@ -164,7 +164,4 @@ export class FormularioComponent implements OnInit{
     this.formulario.reset();
   }
 
-  public VerUsuarios(){
-    this.Router.navigate(["verusuarios"]);
-  }
 }
